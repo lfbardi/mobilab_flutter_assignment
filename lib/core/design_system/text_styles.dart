@@ -4,7 +4,7 @@ import 'package:mobilab_flutter_assignment/core/design_system/colors.dart';
 const kTitle = TextStyle(
   fontFamily: 'Poppins',
   fontWeight: FontWeight.w500,
-  fontSize: 30,
+  fontSize: 26,
   color: Colors.black,
 );
 
