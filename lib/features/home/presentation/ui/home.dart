@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobilab_flutter_assignment/core/design_system/colors.dart';
 
 import '../../../../core/design_system/text_styles.dart';
+import '../../../create_shopping_list/presentation/ui/create_shopping_list.dart';
 import 'widgets/shopping_list_tile.dart';
 
 class Home extends ConsumerStatefulWidget {
@@ -47,7 +48,14 @@ class _HomeState extends ConsumerState<Home> {
                   style: const ButtonStyle(
                     backgroundColor: MaterialStatePropertyAll(kPrimaryColor),
                   ),
-                  onPressed: () async {},
+                  onPressed: () async {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const CreateShoppingListPage(),
+                      ),
+                    );
+                  },
                   child: const Text(
                     'Create List',
                     style: TextStyle(
