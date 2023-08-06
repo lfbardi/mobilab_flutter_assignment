@@ -16,9 +16,20 @@ class HomeRemoteDatasourceImpl implements HomeRemoteDatasource {
   Future<List<ShoppingList>> getAllShoppingLists() async {
     try {
       final response = await dio.get('/shopping-lists.json');
-      return (response.data as List)
-          .map((e) => ShoppingList.fromMap(e))
-          .toList();
+
+      if (response.statusCode == 200 && response.data != null) {
+        final Map<String, dynamic> data = response.data as Map<String, dynamic>;
+        final List<ShoppingList> shoppingLists = data.entries.map((entry) {
+          final id = entry.key;
+          final map = entry.value as Map<String, dynamic>;
+          return ShoppingList.fromMap(id, map);
+        }).toList();
+        return shoppingLists;
+      } else if (response.statusCode == 200 && response.data == null) {
+        return [];
+      } else {
+        throw FirebaseException(message: 'Error getting Shopping Lists');
+      }
     } catch (e) {
       throw FirebaseException(message: 'Error getting Shopping Lists');
     }
