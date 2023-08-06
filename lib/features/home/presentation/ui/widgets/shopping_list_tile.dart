@@ -2,11 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobilab_flutter_assignment/core/design_system/colors.dart';
 import 'package:mobilab_flutter_assignment/core/design_system/text_styles.dart';
+import 'package:mobilab_flutter_assignment/features/home/data/models/shopping_list.dart';
+import 'package:mobilab_flutter_assignment/features/home/presentation/store/home_store.dart';
 
 import '../../../../shopping_list_details/presentation/ui/shopping_list_details.dart';
 
 class ShoppingListTile extends ConsumerStatefulWidget {
-  const ShoppingListTile({super.key});
+  const ShoppingListTile({
+    super.key,
+    required this.shoppingList,
+  });
+
+  final ShoppingList shoppingList;
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() =>
@@ -18,6 +25,8 @@ class _ShoppingListTileState extends ConsumerState<ShoppingListTile> {
 
   @override
   Widget build(BuildContext context) {
+    final store = ref.read(homeStore.notifier);
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -50,17 +59,20 @@ class _ShoppingListTileState extends ConsumerState<ShoppingListTile> {
                 Stack(
                   alignment: Alignment.center,
                   children: [
-                    const SizedBox(
+                    SizedBox(
                       height: 50,
                       width: 50,
                       child: CircularProgressIndicator(
                         color: kPrimaryColor,
-                        value: 0.5,
+                        value: double.parse(store
+                                .getListProgress(widget.shoppingList)
+                                .toStringAsFixed(2)) /
+                            100,
                       ),
                     ),
                     Positioned(
                       child: Text(
-                        '50%',
+                        '${store.getListProgress(widget.shoppingList).toStringAsFixed(0)}%',
                         style: kTitle.copyWith(fontSize: 16),
                       ),
                     ),
@@ -71,11 +83,11 @@ class _ShoppingListTileState extends ConsumerState<ShoppingListTile> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Breakfast',
+                      widget.shoppingList.title,
                       style: kTitle.copyWith(fontSize: 18),
                     ),
                     Text(
-                      '3 items',
+                      '${widget.shoppingList.items.length} items',
                       style: kDescription.copyWith(fontSize: 14),
                     )
                   ],
