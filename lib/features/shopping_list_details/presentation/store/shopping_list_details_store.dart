@@ -8,19 +8,19 @@ import '../../../home/data/models/shopping_item.dart';
 import '../../data/shopping_list_details_remote_datasource.dart';
 
 final shoppingListDetailsRemoteDatasource =
-    Provider<ShoppingListDetailsRemoteDatasource>((ref) {
+    Provider.autoDispose<ShoppingListDetailsRemoteDatasource>((ref) {
   return ShoppingListDetailsRemoteDatasourceImpl(dio: ref.read(firebaseDio));
 });
 
 final shoppingListDetailsRepository =
-    Provider<ShoppingListDetailsRepository>((ref) {
+    Provider.autoDispose<ShoppingListDetailsRepository>((ref) {
   return ShoppingListDetailsRepositoryImpl(
     datasource: ref.read(shoppingListDetailsRemoteDatasource),
   );
 });
 
-final shoppingListDetailsStore =
-    StateNotifierProvider<ShoppingListDetailsStore, ShoppingListDetailsState>(
+final shoppingListDetailsStore = StateNotifierProvider.autoDispose<
+    ShoppingListDetailsStore, ShoppingListDetailsState>(
   (ref) => ShoppingListDetailsStore(
     repository: ref.read(
       shoppingListDetailsRepository,

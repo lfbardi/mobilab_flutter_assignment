@@ -6,17 +6,17 @@ import 'package:mobilab_flutter_assignment/features/home/data/home_repository.da
 import 'package:mobilab_flutter_assignment/features/home/data/models/shopping_list.dart';
 import 'package:mobilab_flutter_assignment/features/home/presentation/store/home_state.dart';
 
-final homeRemoteDatasource = Provider<HomeRemoteDatasource>((ref) {
+final homeRemoteDatasource = Provider.autoDispose<HomeRemoteDatasource>((ref) {
   return HomeRemoteDatasourceImpl(dio: ref.read(firebaseDio));
 });
 
-final homeRepository = Provider<HomeRepository>((ref) {
+final homeRepository = Provider.autoDispose<HomeRepository>((ref) {
   return HomeRepositoryImpl(
     datasource: ref.read(homeRemoteDatasource),
   );
 });
 
-final homeStore = StateNotifierProvider<HomeStore, HomeState>(
+final homeStore = StateNotifierProvider.autoDispose<HomeStore, HomeState>(
   (ref) => HomeStore(
     repository: ref.read(
       homeRepository,
