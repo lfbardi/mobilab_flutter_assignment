@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobilab_flutter_assignment/core/design_system/text_styles.dart';
+import 'package:mobilab_flutter_assignment/features/home/data/models/shopping_item.dart';
+import 'package:mobilab_flutter_assignment/features/home/presentation/store/home_store.dart';
 
 import '../../../../core/design_system/colors.dart';
+import '../store/create_shopping_list_state.dart';
+import '../store/create_shopping_list_store.dart';
 import 'widgets/elevated_text_field.dart';
 
 class CreateShoppingListPage extends ConsumerStatefulWidget {
@@ -17,9 +21,16 @@ class _CreateShoppingListPageState
     extends ConsumerState<CreateShoppingListPage> {
   final shoppingListNameController = TextEditingController();
   final addItemsController = TextEditingController();
+  final nameFormKey = GlobalKey<FormState>();
+  final itemFormKey = GlobalKey<FormState>();
+  List<ShoppingItem> items = [];
 
   @override
   Widget build(BuildContext context) {
+    final state = ref.watch(createShoppingListStore);
+    final store = ref.read(createShoppingListStore.notifier);
+    final storeHome = ref.read(homeStore.notifier);
+
     return Material(
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -50,9 +61,12 @@ class _CreateShoppingListPageState
                     ],
                   ),
                   const SizedBox(height: 20),
-                  ElevatedTextField(
-                    controller: TextEditingController(),
-                    hintText: 'Shopping List Name',
+                  Form(
+                    key: nameFormKey,
+                    child: ElevatedTextField(
+                      controller: shoppingListNameController,
+                      hintText: 'Shopping List Name',
+                    ),
                   ),
                   const SizedBox(height: 20),
                   Text(
@@ -63,12 +77,12 @@ class _CreateShoppingListPageState
                   Flexible(
                     child: ListView.builder(
                       shrinkWrap: true,
-                      itemCount: 2,
+                      itemCount: items.length,
                       itemBuilder: (context, index) {
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 10),
                           child: Text(
-                            'Cenoura',
+                            items[index].title,
                             style: kTitle.copyWith(fontSize: 20),
                           ),
                         );
@@ -79,12 +93,24 @@ class _CreateShoppingListPageState
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Flexible(
-                        child: TextFormField(
-                          controller: addItemsController,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: 'New Item',
-                            hintStyle: kDescription.copyWith(fontSize: 18),
+                        child: Form(
+                          key: itemFormKey,
+                          child: TextFormField(
+                            controller: addItemsController,
+                            style: kTitle.copyWith(fontSize: 18),
+                            validator: (value) {
+                              if (value == null ||
+                                  value.isEmpty ||
+                                  value.length < 3) {
+                                return 'Please enter a valid name';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: 'New Item',
+                              hintStyle: kDescription.copyWith(fontSize: 18),
+                            ),
                           ),
                         ),
                       ),
@@ -95,7 +121,19 @@ class _CreateShoppingListPageState
                             backgroundColor:
                                 MaterialStatePropertyAll(kPrimaryColor),
                           ),
-                          onPressed: () async {},
+                          onPressed: () async {
+                            if (itemFormKey.currentState!.validate()) {
+                              setState(() {
+                                items.add(
+                                  ShoppingItem(
+                                    title: addItemsController.text,
+                                    isChecked: false,
+                                  ),
+                                );
+                                addItemsController.clear();
+                              });
+                            }
+                          },
                           child: const Text(
                             'Add',
                             style: TextStyle(
@@ -119,20 +157,36 @@ class _CreateShoppingListPageState
                       backgroundColor: MaterialStatePropertyAll(kPrimaryColor),
                     ),
                     onPressed: () async {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const CreateShoppingListPage(),
-                        ),
-                      );
+                      if (nameFormKey.currentState!.validate() &&
+                          items.isNotEmpty) {
+                        store
+                            .createShoppingList(
+                          shoppingListNameController.text,
+                          items,
+                        )
+                            .then((value) {
+                          shoppingListNameController.clear();
+                          Navigator.of(context)
+                              .pop(storeHome.getAllShoppingLists());
+                        });
+                      }
                     },
-                    child: const Text(
-                      'Create List',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                      ),
-                    ),
+                    child: state.status ==
+                            CreateShoppingListStatus.creatingShoppingList
+                        ? const SizedBox(
+                            width: 20,
+                            height: 20,
+                            child: CircularProgressIndicator(
+                              color: Colors.white,
+                            ),
+                          )
+                        : const Text(
+                            'Create List',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
                   ),
                 ),
               ),
