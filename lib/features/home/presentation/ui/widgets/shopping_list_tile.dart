@@ -48,7 +48,8 @@ class _ShoppingListTileState extends ConsumerState<ShoppingListTile> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => const ShoppingListDetails(),
+                builder: (context) =>
+                    ShoppingListDetails(shoppingList: widget.shoppingList),
               ),
             );
           },
