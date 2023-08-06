@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class ShoppingItem {
   final String title;
   final bool isChecked;
@@ -18,6 +19,16 @@ class ShoppingItem {
     return ShoppingItem(
       title: map['title'] as String,
       isChecked: map['isChecked'] as bool,
+    );
+  }
+
+  ShoppingItem copyWith({
+    String? title,
+    bool? isChecked,
+  }) {
+    return ShoppingItem(
+      title: title ?? this.title,
+      isChecked: isChecked ?? this.isChecked,
     );
   }
 }
