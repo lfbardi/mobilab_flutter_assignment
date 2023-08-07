@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 enum CreateShoppingListStatus {
   initial,
   creatingShoppingList,
@@ -23,4 +24,14 @@ class CreateShoppingListState {
       status: status ?? this.status,
     );
   }
+
+  @override
+  bool operator ==(covariant CreateShoppingListState other) {
+    if (identical(this, other)) return true;
+
+    return other.errorMessage == errorMessage && other.status == status;
+  }
+
+  @override
+  int get hashCode => errorMessage.hashCode ^ status.hashCode;
 }
