@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'features/home/presentation/ui/home.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(const ProviderScope(child: SafeArea(child: MyApp())));
 }
 
 class MyApp extends StatelessWidget {
@@ -36,9 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return const Material(
-      child: SafeArea(
-        child: Home(),
-      ),
+      child: Home(),
     );
   }
 }
