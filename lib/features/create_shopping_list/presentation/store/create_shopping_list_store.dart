@@ -1,4 +1,3 @@
-// ignore: avoid_web_libraries_in_flutter
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:mobilab_flutter_assignment/core/dio/firebase_dio.dart';
 import 'package:mobilab_flutter_assignment/features/create_shopping_list/data/create_shopping_list_remote_datasource.dart';

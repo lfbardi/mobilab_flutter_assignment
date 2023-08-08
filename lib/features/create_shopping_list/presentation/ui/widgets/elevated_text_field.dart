@@ -24,7 +24,7 @@ class ElevatedTextField extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 2,
             blurRadius: 4,
-            offset: const Offset(0, 2), // vertical and horizontal offset
+            offset: const Offset(0, 2),
           ),
         ],
       ),

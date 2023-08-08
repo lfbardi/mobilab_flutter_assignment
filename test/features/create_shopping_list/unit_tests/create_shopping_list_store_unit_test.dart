@@ -8,7 +8,6 @@ import 'package:mobilab_flutter_assignment/features/create_shopping_list/present
 import 'package:mocktail/mocktail.dart';
 import 'package:test/test.dart';
 
-// Create a mock for the repository
 class MockCreateShoppingListRepository extends Mock
     implements CreateShoppingListRepository {}
 
