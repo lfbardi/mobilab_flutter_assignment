@@ -65,17 +65,20 @@ class ShoppingListDetailsStore extends StateNotifier<ShoppingListDetailsState> {
   }
 
   initShoppingList(ShoppingList shoppingList) {
-    state = state.copyWith(edittingShoppingList: shoppingList);
+    state = state.copyWith(
+      edittingShoppingList: shoppingList,
+      status: ShoppingListDetailsStatus.success,
+    );
   }
 
-  double getListProgress() {
+  double getListProgress(ShoppingList list) {
     int totalProgress = 0;
-    for (var item in state.edittingShoppingList!.items) {
+    for (var item in list.items) {
       if (item.isChecked) {
         totalProgress += 1;
       }
     }
-    return (totalProgress / state.edittingShoppingList!.items.length) * 100;
+    return (totalProgress / list.items.length) * 100;
   }
 
   addItem(String title) {
