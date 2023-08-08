@@ -43,7 +43,7 @@ void main() {
           title: any(named: 'title'),
           items: any(named: 'items'),
         ),
-      ).thenThrow(FirebaseException(message: 'Erro no Firebase'));
+      ).thenThrow(FirebaseException(message: 'Firebase Error'));
 
       final result = await createShoppingListRepository
           .createShoppingList(title: 'test list', items: []);
