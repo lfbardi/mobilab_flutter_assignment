@@ -22,13 +22,13 @@ class ShoppingListDetailsRemoteDatasourceImpl
         data: shoppingList.toMap(),
       );
 
-      if (response.statusCode != 200) {
-        throw FirebaseException(message: 'Failed to update shopping list');
-      } else {
+      if (response.statusCode == 200) {
         return true;
+      } else {
+        throw FirebaseException(message: 'Failed to update shopping list');
       }
     } catch (e) {
-      throw FirebaseException(message: 'Failed to update shopping list');
+      throw FirebaseException(message: e.toString());
     }
   }
 
@@ -39,10 +39,10 @@ class ShoppingListDetailsRemoteDatasourceImpl
         '/shopping-lists/${shoppingList.id}.json',
       );
 
-      if (response.statusCode != 200) {
-        throw FirebaseException(message: 'Failed to finish shopping list');
-      } else {
+      if (response.statusCode == 200) {
         return true;
+      } else {
+        throw FirebaseException(message: 'Failed to finish shopping list');
       }
     } catch (e) {
       throw FirebaseException(message: 'Failed to finish shopping list');

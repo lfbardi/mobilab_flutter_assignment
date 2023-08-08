@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/foundation.dart';
+
 import 'shopping_item.dart';
 
 class ShoppingList {
@@ -38,4 +40,16 @@ class ShoppingList {
       items: items ?? this.items,
     );
   }
+
+  @override
+  bool operator ==(covariant ShoppingList other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.title == title &&
+        listEquals(other.items, items);
+  }
+
+  @override
+  int get hashCode => id.hashCode ^ title.hashCode ^ items.hashCode;
 }

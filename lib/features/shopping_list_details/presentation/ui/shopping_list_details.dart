@@ -208,7 +208,10 @@ class _ShoppingListDetailsState extends ConsumerState<ShoppingListDetails> {
                       ),
                       onPressed: state.isFinishShoppingEnabled
                           ? () async {
-                              store.finishShoppingList().then((value) {
+                              store
+                                  .finishShoppingList(
+                                      state.edittingShoppingList!)
+                                  .then((value) {
                                 Navigator.of(context)
                                     .pop(storeHome.getAllShoppingLists());
                               });

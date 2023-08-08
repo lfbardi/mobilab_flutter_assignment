@@ -106,13 +106,13 @@ class ShoppingListDetailsStore extends StateNotifier<ShoppingListDetailsState> {
     );
   }
 
-  Future finishShoppingList() async {
+  Future finishShoppingList(ShoppingList shoppingList) async {
     state = state.copyWith(
       status: ShoppingListDetailsStatus.finishingShoppingList,
     );
 
     final updateShoppingListEither = await repository.finishShoppingList(
-      shoppingList: state.edittingShoppingList!,
+      shoppingList: shoppingList,
     );
 
     updateShoppingListEither.fold(
