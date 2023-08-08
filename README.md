@@ -1,16 +1,51 @@
-# mobilab_flutter_assignment
+# Smart Shopping List
 
-A new Flutter project.
+Smart Shopping List is a simple and user-friendly shopping list application designed to make your everyday shopping a breeze. The app allows you to effortlessly create and manage your shopping lists, ensuring you never forget any essential items while shopping.
 
-## Getting Started
+## How to run the Application
 
-This project is a starting point for a Flutter application.
+- Clone the Flutter Project
 
-A few resources to get you started if this is your first Flutter project:
+- Open the Project in Your Preferred Code Editor
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- Get Dependencies:
+	> flutter pub get
+	
+- Connect a Device or Emulator:
+	> Tested on:
+	>  Iphone 14 Pro Máx simulator (IOS 16.4)
+	>  Nexus 5 simulator (Android 12)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Run the Application:
+	> flutter run
+
+## How to run the Tests
+
+- Go to the root project directory
+- Run the tests command:
+	> flutter test
+ 
+## Architecture
+
+Overall the project use a architecture inspired by the Clean Architecture by Uncle Bob but with some few changes, since its a small project, I shrinked some Layers like the domain and usecase layers, to improve the coding speed but still having the code organized.
+
+![](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+
+## Data Layer
+> Models > Datasources > Repositories
+
+## Presentation Layer
+> Store > StateNotifier > UI
+
+## Packages
+
+- flutter_riverpod
+	> Dependency Injection and State Management
+- dio
+	> HTTP Requests
+- dartz
+	> Error handling easier with Either
+- uuid
+	> ID generation
+- mocktail, state_notifier_test and dartz_test
+	> Mocks and testing
