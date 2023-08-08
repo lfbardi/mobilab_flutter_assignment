@@ -92,11 +92,13 @@ class ShoppingListDetailsStore extends StateNotifier<ShoppingListDetailsState> {
 
   removeItem(int index) {
     final newList = state.edittingShoppingList!.items;
-    newList.removeAt(index);
-    state = state.copyWith(
-      edittingShoppingList:
-          state.edittingShoppingList!.copyWith(items: newList),
-    );
+    if (newList.length > 1) {
+      newList.removeAt(index);
+      state = state.copyWith(
+        edittingShoppingList:
+            state.edittingShoppingList!.copyWith(items: newList),
+      );
+    }
   }
 
   toggleShoppingItem(int index) {
