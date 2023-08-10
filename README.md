@@ -1,51 +1,53 @@
 # Smart Shopping List
 
-Smart Shopping List is a simple and user-friendly shopping list application designed to make your everyday shopping a breeze. The app allows you to effortlessly create and manage your shopping lists, ensuring you never forget any essential items while shopping.
+`Smart Shopping List` is a user-friendly application designed to simplify your shopping experience. With this app, you can easily create and manage your shopping lists, ensuring no essential items are forgotten during shopping.
 
-## How to run the Application
+## How to Run the Application
 
-- Clone the Flutter Project
+- Clone the Flutter project.
+- Open the project in your preferred code editor.
+- Obtain dependencies:
+   ```bash
+   flutter pub get
+   ```
+- Connect to a device or emulator. Tested on:
+   > iPhone 14 Pro Max simulator (iOS 16.4)
 
-- Open the Project in Your Preferred Code Editor
+   > Nexus 5 simulator (Android 12)
+- Run the application:
+   ```bash
+   flutter run
+   ```
 
-- Get Dependencies:
-	> flutter pub get
-	
-- Connect a Device or Emulator:
-	> Tested on:
-	>  Iphone 14 Pro Máx simulator (IOS 16.4)
-	>  Nexus 5 simulator (Android 12)
+## How to Run the Tests
 
-- Run the Application:
-	> flutter run
+- Navigate to the root project directory.
+- Execute the test command:
+   ```bash
+   flutter test
+   ```
 
-## How to run the Tests
-
-- Go to the root project directory
-- Run the tests command:
-	> flutter test
- 
 ## Architecture
 
-Overall the project use a architecture inspired by the Clean Architecture by Uncle Bob but with some few changes, since its a small project, I shrinked some Layers like the domain and usecase layers, to improve the coding speed but still having the code organized.
+The project's architecture is inspired by Uncle Bob's Clean Architecture with slight modifications. Given the project's size, I consolidated certain layers, such as the domain and use case layers. This decision expedited the coding process while maintaining organized code.
 
-![](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
+![Clean Architecture](https://blog.cleancoder.com/uncle-bob/images/2012-08-13-the-clean-architecture/CleanArchitecture.jpg)
 
-## Data Layer
+### Data Layer
 > Models > Datasources > Repositories
 
-## Presentation Layer
+### Presentation Layer
 > Store > StateNotifier > UI
 
 ## Packages
 
-- flutter_riverpod
-	> Dependency Injection and State Management
-- dio
-	> HTTP Requests
-- dartz
-	> Error handling easier with Either
-- uuid
-	> ID generation
-- mocktail, state_notifier_test and dartz_test
-	> Mocks and testing
+- **flutter_riverpod**
+> Dependency injection and state management.
+- **dio**
+> Used for HTTP requests.
+- **dartz**
+> Simplifies error handling with Either.
+- **uuid**
+> For ID generation.
+- `Testing:` **mocktail**, **state_notifier_test**, **dartz_test**
+> For mocks and testing.
