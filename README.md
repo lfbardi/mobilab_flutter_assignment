@@ -4,25 +4,25 @@
 
 ## How to Run the Application
 
-1. Clone the Flutter project.
-2. Open the project in your preferred code editor.
-3. Obtain dependencies:
+- Clone the Flutter project.
+- Open the project in your preferred code editor.
+- Obtain dependencies:
    ```bash
    flutter pub get
    ```
-4. Connect to a device or emulator. Tested on:
+- Connect to a device or emulator. Tested on:
    > iPhone 14 Pro Max simulator (iOS 16.4)
 
    > Nexus 5 simulator (Android 12)
-5. Run the application:
+- Run the application:
    ```bash
    flutter run
    ```
 
 ## How to Run the Tests
 
-1. Navigate to the root project directory.
-2. Execute the test command:
+- Navigate to the root project directory.
+- Execute the test command:
    ```bash
    flutter test
    ```
